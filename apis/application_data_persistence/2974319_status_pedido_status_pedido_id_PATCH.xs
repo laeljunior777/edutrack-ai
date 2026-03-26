@@ -1,0 +1,26 @@
+// Edit STATUS_ PEDIDO record
+query "status_pedido/{status_pedido_id}" verb=PATCH {
+  api_group = "Application Data Persistence"
+
+  input {
+    int status_pedido_id? filters=min:1
+    dblink {
+      table = "STATUS_ PEDIDO"
+    }
+  }
+
+  stack {
+    util.get_raw_input {
+      encoding = "json"
+      exclude_middleware = false
+    } as $raw_input
+  
+    db.patch "STATUS_ PEDIDO" {
+      field_name = "id"
+      field_value = $input.status_pedido_id
+      data = `$input|pick:($raw_input|keys)`|filter_null|filter_empty_text
+    } as $status_pedido
+  }
+
+  response = $status_pedido
+}
