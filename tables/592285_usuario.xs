@@ -1,7 +1,5 @@
+// Meu primeiro comentário via VS Code.
 table USUARIO {
-  // Meu primeiro comentário via VS Code.
-  
-  
   auth = true
 
   schema {
@@ -14,7 +12,6 @@ table USUARIO {
     email email? filters=trim|lower
     password password? {
       sensitive = true
-      visibility = "internal"
     }
   
     int papel_id? {
